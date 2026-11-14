@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>축구 킥 자세 분석</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>축구 킥 자세 분석</h1>
+    <p>킥 영상을 올리면 임팩트 순간의 무게중심과 디딤발 위치를 분석합니다.</p>
+  </header>
+
+  <main>
+    <!-- 1. 영상 선택 -->
+    <section id="upload-view" class="card">
+      <label id="drop-zone" for="file-input">
+        <input id="file-input" type="file" accept=".mp4,.mov,.avi,video/*" hidden>
+        <strong id="drop-title">영상을 끌어다 놓거나 눌러서 선택하세요</strong>
+        <span id="drop-hint">mp4, mov, avi · 최대 200MB · 킥 한 번이 담긴 3~5초 영상</span>
+      </label>
+
+      <fieldset>
+        <legend>킥 종류</legend>
+        <div class="segmented">
+          <label><input type="radio" name="kick" value="long" checked><span>롱 패스</span></label>
+          <label><input type="radio" name="kick" value="short_pass"><span>짧은 패스</span></label>
+          <label><input type="radio" name="kick" value="shoot"><span>슈팅</span></label>
+        </div>
+      </fieldset>
+
+      <button id="start-button" class="primary" disabled>분석 시작</button>
+      <p id="upload-error" class="error" hidden></p>
+    </section>
+
+    <!-- 2. 진행 상황 -->
+    <section id="progress-view" class="card" hidden>
+      <h2 id="progress-title">영상을 올리는 중입니다</h2>
+      <div class="bar"><div id="bar-fill"></div></div>
+      <p id="progress-text" class="muted"></p>
+    </section>
+
+    <!-- 3. 결과 -->
+    <section id="result-view" hidden>
+      <div class="verdicts">
+        <article id="weight-card" class="card verdict">
+          <h2>무게중심</h2>
+          <p class="value" id="weight-value"></p>
+          <p class="advice" id="weight-advice"></p>
+          <p class="muted" id="weight-confidence"></p>
+        </article>
+        <article id="foot-card" class="card verdict">
+          <h2>디딤발</h2>
+          <p class="value" id="foot-value"></p>
+          <p class="advice" id="foot-advice"></p>
+          <p class="muted" id="foot-confidence"></p>
+          <p class="muted">디딤발 판정은 학습 영상이 적고 정확도가 낮아 참고만 하세요.</p>
+        </article>
+      </div>
+
+      <div class="card media">
+        <div class="tabs" role="tablist">
+          <button class="tab active" data-tab="image" role="tab">임팩트 순간</button>
+          <button class="tab" data-tab="video" role="tab">영상 다시 보기</button>
+        </div>
+        <div id="tab-image">
+          <img id="impact-image" alt="임팩트 순간의 프레임. 관절은 노란 선, 공은 초록 상자로 표시됩니다.">
+          <p class="muted">노란 선은 추정한 관절, 초록 상자는 검출한 공입니다.</p>
+        </div>
+        <div id="tab-video" hidden>
+          <video id="video" controls playsinline></video>
+          <div class="video-actions">
+            <button id="jump-button">임팩트 순간으로 이동</button>
+            <label class="check"><input id="slow-check" type="checkbox"> 0.5배속</label>
+          </div>
+          <p id="video-error" class="muted" hidden>이 브라우저에서는 이 영상 형식을 재생할 수 없습니다. 임팩트 순간 이미지를 확인하세요.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>분석 정보</h2>
+        <dl id="details"></dl>
+        <p class="muted">오른발 킥을 옆에서 고정 촬영한 영상을 기준으로 학습했습니다. 학습 영상이 적어 결과는 참고용입니다.</p>
+      </div>
+
+      <button id="again-button" class="primary">다른 영상 분석하기</button>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

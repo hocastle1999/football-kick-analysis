@@ -1,0 +1,27 @@
+# 가상환경, 캐시
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+
+# 원본 영상: 사람이 찍혀 있으므로 저장소에 올리지 않는다
+data/videos/
+data/foot_videos/
+*.mp4
+*.mov
+*.MOV
+*.avi
+
+# 내려받는 사전학습 가중치와 학습 결과물
+*.pt
+*.pth
+models/weights/
+outputs/
+
+# 편집기
+.vscode/
+.idea/
+
+# 실험용으로 다시 뽑은 키포인트(포즈 모델 크기별 비교)
+data/keypoints_*/

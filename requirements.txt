@@ -1,0 +1,18 @@
+# 실행에 필요한 패키지. 버전을 고정해 누가 설치해도 같은 환경이 되게 한다.
+# torch는 CPU 전용 빌드를 쓴다(GPU 없이 동작하는 것이 이 프로젝트의 전제다).
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch==2.5.1+cpu
+torchvision==0.20.1+cpu
+mediapipe==0.10.14
+ultralytics==8.3.253
+numpy==1.26.4
+opencv-python==4.11.0.86
+scikit-learn==1.7.2
+matplotlib==3.10.9
+pillow==12.3.0
+psutil==7.2.2
+
+# 웹 서버
+fastapi==0.115.6
+uvicorn==0.34.0
+python-multipart==0.0.20

@@ -1,0 +1,106 @@
+:root {
+  --bg: #f4f6f3;
+  --card: #ffffff;
+  --text: #17231b;
+  --muted: #5f6f64;
+  --line: #dde3dd;
+  --accent: #1f7a45;
+  --accent-text: #ffffff;
+  --good: #1f7a45;
+  --good-bg: #e6f4ea;
+  --warn: #a15c00;
+  --warn-bg: #fdf1dc;
+  --error: #b3261e;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #101612;
+    --card: #19211b;
+    --text: #e8efe9;
+    --muted: #9fb0a4;
+    --line: #2c382f;
+    --accent: #3fae6a;
+    --accent-text: #08130c;
+    --good: #6fd598;
+    --good-bg: #173524;
+    --warn: #f0b860;
+    --warn-bg: #3a2c12;
+    --error: #ff8a80;
+  }
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Pretendard", "Malgun Gothic", system-ui, sans-serif;
+  line-height: 1.55;
+}
+header, main { max-width: 860px; margin: 0 auto; padding: 0 16px; }
+header { padding-top: 40px; padding-bottom: 8px; }
+h1 { margin: 0 0 4px; font-size: 1.7rem; letter-spacing: -0.02em; }
+h2 { margin: 0 0 8px; font-size: 1rem; color: var(--muted); font-weight: 600; }
+header p { margin: 0; color: var(--muted); }
+/* minmax(0, 1fr): 안쪽 내용이 길어도 칸이 화면 너비를 넘지 않게 한다 */
+main { padding-bottom: 64px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; }
+[hidden] { display: none !important; }
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 20px;
+}
+.muted { color: var(--muted); font-size: 0.9rem; margin: 8px 0 0; }
+.error { color: var(--error); margin: 12px 0 0; }
+
+#upload-view { display: grid; gap: 18px; }
+#drop-zone {
+  display: grid; gap: 6px; place-items: center; text-align: center;
+  padding: 36px 16px;
+  border: 2px dashed var(--line); border-radius: 12px;
+  cursor: pointer; transition: border-color .15s, background .15s;
+}
+#drop-zone:hover, #drop-zone.over { border-color: var(--accent); background: var(--good-bg); }
+#drop-zone span { color: var(--muted); font-size: 0.9rem; }
+
+fieldset { border: 0; padding: 0; margin: 0; }
+legend { padding: 0; margin-bottom: 8px; font-weight: 600; }
+.segmented { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.segmented input { position: absolute; opacity: 0; }
+.segmented span {
+  display: block; text-align: center; padding: 10px 6px;
+  border: 1px solid var(--line); border-radius: 10px; cursor: pointer;
+}
+.segmented input:checked + span { border-color: var(--accent); background: var(--good-bg); font-weight: 600; }
+.segmented input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+button { font: inherit; cursor: pointer; border-radius: 10px; border: 1px solid var(--line); background: var(--card); color: var(--text); padding: 9px 14px; }
+button.primary { background: var(--accent); color: var(--accent-text); border-color: var(--accent); font-weight: 700; padding: 13px 16px; width: 100%; }
+button:disabled { opacity: .45; cursor: not-allowed; }
+
+.bar { height: 10px; background: var(--line); border-radius: 99px; overflow: hidden; }
+#bar-fill { height: 100%; width: 0; background: var(--accent); transition: width .3s; }
+
+#result-view { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; }
+.verdicts { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr)); gap: 16px; }
+.verdict { border-left-width: 6px; }
+.verdict .value { margin: 0; font-size: 1.5rem; font-weight: 700; letter-spacing: -0.01em; }
+.verdict .advice { margin: 6px 0 0; }
+.verdict.good { border-left-color: var(--good); }
+.verdict.good .advice { color: var(--good); }
+.verdict.warn { border-left-color: var(--warn); }
+.verdict.warn .advice { color: var(--warn); }
+.verdict.unknown .value { color: var(--muted); }
+
+.tabs { display: flex; gap: 8px; margin-bottom: 14px; }
+.tab.active { border-color: var(--accent); background: var(--good-bg); font-weight: 600; }
+.media img, .media video { width: 100%; border-radius: 10px; display: block; background: #000; }
+.video-actions { display: flex; gap: 14px; align-items: center; margin-top: 12px; flex-wrap: wrap; }
+.check { display: inline-flex; gap: 6px; align-items: center; }
+
+/* minmax(0, 1fr): 긴 파일 이름이 있어도 칸이 화면 밖으로 늘어나지 않게 한다 */
+dl { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 6px 18px; margin: 0; }
+dt { color: var(--muted); }
+dd { margin: 0; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
