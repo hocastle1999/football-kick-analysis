@@ -1,5 +1,7 @@
 # 축구 킥 자세 분석
 
+[![CI](https://github.com/hocastle1999/football-kick-analysis/actions/workflows/ci.yml/badge.svg)](https://github.com/hocastle1999/football-kick-analysis/actions/workflows/ci.yml)
+
 스마트폰으로 옆에서 찍은 킥 영상에서 임팩트 순간을 찾아 **무게중심**(앞 / 가운데 / 뒤)과
 **디딤발 위치**(나란히 / 앞 / 뒤 / 너무 가까움 / 너무 멂)를 분류하고, 킥 종류에 맞는 자세인지 알려 준다.
 
@@ -110,6 +112,9 @@ py -3.10 -m venv .venv
 .\.venv\Scripts\ruff.exe check .
 .\.venv\Scripts\ruff.exe format --check .
 ```
+
+같은 검사를 GitHub Actions가 PR과 main에 대해 자동으로 돌린다(`.github/workflows/ci.yml`).
+테스트 뒤에는 저장소에 든 키포인트만으로 분류기가 학습되는지도 확인한다.
 
 ## 웹 서버 구조
 
