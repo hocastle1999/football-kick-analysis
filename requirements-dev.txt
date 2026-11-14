@@ -1,0 +1,5 @@
+# 개발용(테스트, 린트). 실행용 패키지를 포함한다.
+-r requirements.txt
+pytest==9.2.0
+ruff==0.17.4
+httpx==0.28.1

@@ -1,0 +1,14 @@
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+
+[tool.ruff]
+line-length = 110
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+
+[tool.ruff.lint.flake8-bugbear]
+# FastAPI는 함수 인자 기본값에 File(...), Form(...)을 쓰는 것이 정해진 사용법이다
+extend-immutable-calls = ["fastapi.File", "fastapi.Form"]
