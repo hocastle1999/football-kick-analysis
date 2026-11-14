@@ -3,7 +3,13 @@
 
 const $ = (id) => document.getElementById(id);
 
-const WEIGHT_NAMES = { back: "공보다 뒤", middle: "공과 나란히", front: "공보다 앞" };
+const WEIGHT_NAMES = { back: "뒤쪽", middle: "가운데", front: "앞쪽" };
+// 무게중심은 공을 지나는 수직선을 기준으로 몸이 어느 쪽에 실려 있는지를 뜻한다
+const WEIGHT_DESCRIPTIONS = {
+  back: "몸이 공보다 뒤쪽에 실린 자세입니다.",
+  middle: "몸이 공 바로 위에 실린 자세입니다.",
+  front: "몸이 공보다 앞쪽에 실린 자세입니다.",
+};
 const FOOT_NAMES = {
   aligned: "공 옆에 나란히",
   behind: "공보다 뒤",
@@ -120,8 +126,8 @@ function showResult(job) {
     result.weight_confidence,
     WEIGHT_NAMES,
     result.recommended_weight,
-    `${KICK_NAMES[job.kick_type]}에 알맞은 위치입니다.`,
-    `${KICK_NAMES[job.kick_type]}에서는 무게중심을 "${WEIGHT_NAMES[result.recommended_weight]}"에 두는 것이 좋습니다.`
+    `${KICK_NAMES[job.kick_type]}에 알맞은 무게중심입니다.`,
+    `${KICK_NAMES[job.kick_type]}에서는 무게중심을 ${WEIGHT_NAMES[result.recommended_weight]}에 두는 것이 좋습니다.`
   );
   setVerdict(
     "foot",
@@ -132,6 +138,8 @@ function showResult(job) {
     "디딤발 위치가 알맞습니다.",
     `디딤발을 "${FOOT_NAMES.aligned}" 두는 것이 좋습니다.`
   );
+
+  $("weight-description").textContent = WEIGHT_DESCRIPTIONS[result.weight_label] || "";
 
   $("impact-image").src = `/api/analyses/${job.id}/impact.jpg`;
   $("video").src = `/api/analyses/${job.id}/video`;
