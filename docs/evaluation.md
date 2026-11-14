@@ -3,6 +3,10 @@
 모델을 바꾸기 전에 "지금 얼마나 맞는지"를 믿을 수 있게 재는 방법부터 만들었다.
 여기 있는 표는 모두 `scripts/evaluate.py`로 다시 만들 수 있다.
 
+표의 수치는 정밀한 포즈 모델로 영상 전체를 뽑은 키포인트로 잰 것이다.
+저장소의 `data/keypoints/`는 그 뒤 속도 개선으로 바꾼 2단계 추출의 결과라서 다시 돌리면 값이 조금 다르게 나온다.
+두 데이터의 차이는 [performance.md](performance.md)의 3번 표에 있다.
+
 ```powershell
 .\.venv\Scripts\python.exe -m scripts.evaluate --task impact
 .\.venv\Scripts\python.exe -m scripts.evaluate --task foot
