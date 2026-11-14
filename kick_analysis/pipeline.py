@@ -27,7 +27,7 @@ class AnalysisError(Exception):
 
 @dataclass
 class AnalysisResult:
-    impact_frame: int  # 접촉 시점에 가장 가까운 프레임(화면 표시용)
+    impact_frame: int  # 발이 공에 닿기 직전의 마지막 프레임(화면 표시용). 공이 아직 제자리에 있다
     impact_time: float  # 프레임 단위의 접촉 시점. 23.4면 23번과 24번 프레임 사이
     weight_label: str | None  # back / front / middle, 판단하지 못하면 None
     weight_confidence: float | None  # 분류기가 그 라벨에 준 확률(0~1)
@@ -79,7 +79,8 @@ class KickAnalyzer:
         finished = time.perf_counter()
 
         return AnalysisResult(
-            impact_frame=min(round(found.time), keypoints.num_frames - 1),
+            # 접촉 직후 프레임을 보여 주면 공이 이미 떠나 있어서, 표시한 공의 자리와 어긋난다
+            impact_frame=found.frame,
             impact_time=found.time,
             weight_label=weight_label,
             weight_confidence=weight_confidence,
