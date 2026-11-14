@@ -104,3 +104,27 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 dl { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 6px 18px; margin: 0; }
 dt { color: var(--muted); }
 dd { margin: 0; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+
+/* ---------- 촬영 안내 ---------- */
+#guide-view h2 { color: var(--text); font-size: 1.1rem; margin-bottom: 2px; }
+#guide-view h3 { margin: 0 0 6px; font-size: 0.95rem; }
+.guide-lead { margin: 0 0 14px; }
+.guide-figures { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); gap: 14px; }
+.guide-figures figure { margin: 0; }
+.guide-figures svg { width: 100%; height: auto; display: block; border: 1px solid var(--line); border-radius: 10px; }
+.guide-figures figcaption { margin-top: 6px; font-size: 0.85rem; color: var(--muted); text-align: center; }
+.guide-lists { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); gap: 6px 24px; margin-top: 16px; }
+.guide-lists ul { margin: 0; padding-left: 18px; }
+.guide-lists li { margin-bottom: 5px; font-size: 0.93rem; }
+
+/* 그림의 색은 화면 테마(밝게/어둡게)를 따라간다 */
+.g-field, .g-frame { fill: var(--good-bg); stroke: none; }
+.g-frame { stroke: var(--text); stroke-width: 2; }
+.g-line { fill: none; stroke: var(--text); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.g-body { stroke-width: 4; }
+.g-dash { stroke-dasharray: 6 5; stroke-width: 2; }
+.g-fill { fill: var(--text); }
+.g-ball { fill: var(--card); stroke: var(--text); stroke-width: 2.5; }
+.g-lens { fill: var(--card); }
+.g-view { fill: var(--accent); opacity: 0.18; }
+.g-text { fill: var(--text); font-size: 11px; font-family: inherit; }

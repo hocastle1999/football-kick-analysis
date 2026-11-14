@@ -211,6 +211,7 @@ $("again-button").addEventListener("click", () => {
 // ---------- 공통 ----------
 function show(viewId) {
   for (const id of ["upload-view", "progress-view", "result-view"]) $(id).hidden = id !== viewId;
+  $("guide-view").hidden = viewId !== "upload-view"; // 촬영 안내는 영상 선택 화면에서만 보여 준다
 }
 
 const jobFromUrl = new URLSearchParams(location.search).get("job");
