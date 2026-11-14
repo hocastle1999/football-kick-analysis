@@ -33,6 +33,21 @@ MAX_UPLOAD_BYTES = 200 * 1024 * 1024  # 200MB
 CHUNK_SIZE = 1024 * 1024
 
 
+class RevalidatedStaticFiles(StaticFiles):
+    """정적 파일(html, css, js)을 줄 때 "쓰기 전에 서버에 바뀌었는지 물어보라"는 헤더를 붙인다.
+
+    이 헤더가 없으면 브라우저가 저장해 둔 예전 css를 서버에 묻지 않고 그대로 쓸 수 있다.
+    실제로 페이지는 새것인데 스타일만 옛것이어서 그림이 검게 나온 적이 있다.
+    no-cache는 "저장하지 말라"가 아니라 "쓸 때마다 확인하라"는 뜻이다.
+    파일이 그대로면 서버는 내용 없이 304만 돌려주므로 느려지지 않는다.
+    """
+
+    def file_response(self, *args, **kwargs):
+        response = super().file_response(*args, **kwargs)
+        response.headers["Cache-Control"] = "no-cache"
+        return response
+
+
 def create_app(analyzer=None) -> FastAPI:
     """앱을 만든다. analyzer를 주지 않으면 서버가 시작될 때 실제 모델을 불러온다.
 
@@ -106,7 +121,7 @@ def create_app(analyzer=None) -> FastAPI:
         return FileResponse(job.video_path)
 
     # API 경로를 먼저 등록한 뒤, 나머지 경로는 정적 파일(index.html 등)로 처리한다
-    app.mount("/", StaticFiles(directory=STATIC_DIR, html=True), name="static")
+    app.mount("/", RevalidatedStaticFiles(directory=STATIC_DIR, html=True), name="static")
     return app
 
 
