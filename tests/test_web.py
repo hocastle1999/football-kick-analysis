@@ -149,6 +149,17 @@ def test_unknown_job_is_404(client):
     assert client.get("/api/analyses/nope/video").status_code == 404
 
 
+@pytest.mark.parametrize("path", ["/", "/style.css", "/app.js"])
+def test_static_files_are_revalidated(client, path):
+    """브라우저가 예전 파일을 묻지 않고 쓰지 않도록 no-cache를 붙이고, 그대로면 304를 준다."""
+    response = client.get(path)
+    assert response.status_code == 200
+    assert response.headers["cache-control"] == "no-cache"
+
+    unchanged = client.get(path, headers={"If-None-Match": response.headers["etag"]})
+    assert unchanged.status_code == 304
+
+
 def test_serves_index_page(client):
     response = client.get("/")
     assert response.status_code == 200
