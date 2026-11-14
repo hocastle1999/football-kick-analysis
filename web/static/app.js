@@ -151,7 +151,7 @@ function showResult(job) {
   const details = [
     ["영상", `${job.filename} · ${result.width}×${result.height} · ${result.fps}fps · ${result.frames}프레임`],
     ["킥 종류", KICK_NAMES[job.kick_type]],
-    ["임팩트", `${result.impact_time.toFixed(2)}초 (${result.impact_frame}번 프레임 부근)`],
+    ["임팩트", `${result.impact_time.toFixed(2)}초 (${result.impact_frame}번 프레임 직후)`],
     ["전체 분석 시간", `${t.total.toFixed(1)}초`],
     ["좌표 추출", `${t.extract.toFixed(1)}초 (프레임당 ${perFrame.toFixed(0)}ms)`],
     ["임팩트 추정과 분류", `${(t.classify * 1000).toFixed(1)}ms`],

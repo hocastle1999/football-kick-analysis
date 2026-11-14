@@ -81,7 +81,7 @@ def test_analyze_classifies_posture_at_impact():
     result = make_analyzer(pose, ball, weight_model=lean_classifier()).analyze("clip.mp4")
 
     assert result.impact_time == pytest.approx(9.5, abs=1e-3)
-    assert result.impact_frame in (9, 10)
+    assert result.impact_frame == 9  # 접촉(9.5) 직전 프레임. 공이 아직 제자리에 있는 장면을 보여 준다
     assert result.weight_label == "back"
     assert 0.5 < result.weight_confidence <= 1.0
     assert (result.foot_label, result.foot_confidence) == (None, None)  # 디딤발 모델이 없다
